@@ -12,15 +12,15 @@ services:
         value: 3.11.8  # This will explicitly tell Render to use Python 3.11.8
       # Database Connection Details (from your Render PostgreSQL instance)
       - key: DATABASE_URL
-        value: postgresql://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@prontivus-db.internal:5432/prontivus_db_xq59
+        value: postgresql://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com/prontivus_db_xq59
       - key: DATABASE_URL_ASYNC
-        value: postgresql+asyncpg://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@prontivus-db.internal:5432/prontivus_db_xq59
+        value: postgresql+asyncpg://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com/prontivus_db_xq59
       - key: POSTGRES_USER
         value: prontivus_db_xq59_user
       - key: POSTGRES_PASSWORD
         value: 8Sieb85fpppbfbcmGa7IPri01BDywGAfL
       - key: POSTGRES_HOST
-        value: prontivus-db.internal
+        value: dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
       - key: POSTGRES_PORT
         value: 5432
       - key: POSTGRES_DB
