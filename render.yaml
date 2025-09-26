@@ -5,7 +5,9 @@ services:
     plan: free
     # Since your backend files are at the root of the repository,
     # you do not need to specify a 'rootDir' here.
-    buildCommand: poetry install --only main --no-root
+    buildCommand:
+      poetry install --only main --no-root
+      pip install psutil
     startCommand: |
       which python
       python -c "import sys; print(sys.path)"
