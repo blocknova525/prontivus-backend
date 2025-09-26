@@ -44,6 +44,18 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "prontivus_user"
     POSTGRES_PASSWORD: str = "prontivus_password"
     POSTGRES_SSL_MODE: str = "prefer"  # prefer, require, disable
+
+    @field_validator('POSTGRES_PORT', mode='before')
+    @classmethod
+    def validate_postgres_port(cls, v: Union[str, int]) -> int:
+        if isinstance(v, str):
+            try:
+                return int(v)
+            except ValueError:
+                # If it's not a valid integer string, return the original string
+                # Pydantic will then raise a validation error if it's not later an int
+                return v
+        return v
     
     # Connection Pool Settings
     DB_POOL_SIZE: int = 20
