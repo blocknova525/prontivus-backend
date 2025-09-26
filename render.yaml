@@ -6,29 +6,25 @@ services:
     # Since your backend files are at the root of the repository,
     # you do not need to specify a 'rootDir' here.
     buildCommand: bash -c "poetry install --only main --no-root && pip install psutil && pip install PyJWT"
-    startCommand: |
-      ping -c 3 google.com
-      ping -c 3 dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
-      nslookup dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
-      poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.8  # This will explicitly tell Render to use Python 3.11.8
-      # Database Connection Details (from your Render PostgreSQL instance)
+      # Using Render's auto-generated PG* environment variables from Private Service Connection
       - key: DATABASE_URL
-        value: postgresql://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com/prontivus_db_xq59
+        value: postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}
       - key: DATABASE_URL_ASYNC
-        value: postgresql+asyncpg://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com/prontivus_db_xq59
+        value: postgresql+asyncpg://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}
       - key: POSTGRES_USER
-        value: prontivus_db_xq59_user
+        value: ${PGUSER}
       - key: POSTGRES_PASSWORD
-        value: 8Sieb85fpppbfbcmGa7IPri01BDywGAfL
+        value: ${PGPASSWORD}
       - key: POSTGRES_HOST
-        value: dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
+        value: ${PGHOST}
       - key: POSTGRES_PORT
-        value: 5432
+        value: ${PGPORT}
       - key: POSTGRES_DB
-        value: prontivus_db_xq59
+        value: ${PGDATABASE}
       # Application Settings
       - key: USE_DATABASE
         value: "true"
