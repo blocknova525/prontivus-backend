@@ -6,7 +6,11 @@ services:
     # Since your backend files are at the root of the repository,
     # you do not need to specify a 'rootDir' here.
     buildCommand: bash -c "poetry install --only main --no-root && pip install psutil && pip install PyJWT"
-    startCommand: poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: |
+      ping -c 3 google.com
+      ping -c 3 dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
+      nslookup dpg-d3auh18d13ps738v7i70-a-oregon-postgres.render.com
+      poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.8  # This will explicitly tell Render to use Python 3.11.8
