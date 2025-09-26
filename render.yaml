@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: prontivus-backend-2 # IMPORTANT: Update this to match your actual Render web service name (e.g., prontivus-backend-2)
+    env: python
+    plan: free
+    # Since your backend files are at the root of the repository,
+    # you do not need to specify a 'rootDir' here.
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $10000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8  # This will ensure Python 3.11.8 is used
+      # Database Connection Details
+      - key: DATABASE_URL
+        value: postgresql://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a/prontivus_db_xq59
+      - key: DATABASE_URL_ASYNC
+        value: postgresql+asyncpg://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a/prontivus_db_xq59
+      - key: POSTGRES_USER
+        value: prontivus_db_xq59_user
+      - key: POSTGRES_PASSWORD
+        value: 8Sieb85fpppbfbcmGa7IPri01BDywGAfL
+      - key: POSTGRES_HOST
+        value: dpg-d3auh18d13ps738v7i70-a
+      - key: POSTGRES_PORT
+        value: 5432
+      - key: POSTGRES_DB
+        value: prontivus_db_xq59
+      # Application Settings
+      - key: USE_DATABASE
+        value: "true"
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false" 
