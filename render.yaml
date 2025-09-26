@@ -1,16 +1,16 @@
 services:
   - type: web
-    name: prontivus-backend-2 # IMPORTANT: Update this to match your actual Render web service name (e.g., prontivus-backend-2)
+    name: prontivus-backend-2 # This MUST match your Render web service name
     env: python
     plan: free
     # Since your backend files are at the root of the repository,
     # you do not need to specify a 'rootDir' here.
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $10000
+    buildCommand: poetry install --only main --no-root
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.8  # This will ensure Python 3.11.8 is used
-      # Database Connection Details
+        value: 3.11.8  # This will explicitly tell Render to use Python 3.11.8
+      # Database Connection Details (from your Render PostgreSQL instance)
       - key: DATABASE_URL
         value: postgresql://prontivus_db_xq59_user:8Sieb85fpppbfbcmGa7IPri01BDywGAfL@dpg-d3auh18d13ps738v7i70-a/prontivus_db_xq59
       - key: DATABASE_URL_ASYNC
@@ -31,4 +31,4 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: DEBUG
-        value: "false" 
+        value: "false"
