@@ -6,7 +6,7 @@ services:
     # Since your backend files are at the root of the repository,
     # you do not need to specify a 'rootDir' here.
     buildCommand: poetry install --only main --no-root
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.8  # This will explicitly tell Render to use Python 3.11.8
@@ -31,4 +31,4 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: DEBUG
-        value: "false"
+        value: "false" 
